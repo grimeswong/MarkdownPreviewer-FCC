@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import './App.scss';
+import marked from 'marked';
 
 function App() {
 
   const [text, setText] = useState("");
 
+  const createMarkup = () => {
+    let markedText = marked(text, {sanitize: true})
+    return {__html: markedText}
+  }
 
   return (
     <div className="App">
@@ -14,7 +19,7 @@ function App() {
       </div>
       <div className="preview-wrapper">
         <h1>Markdown Previwer</h1>
-        <div id="preview">{text}</div>
+        <p dangerouslySetInnerHTML={createMarkup()} />
       </div>
     </div>
   );
